@@ -1,6 +1,2 @@
 os:
-  edit: 'nvim --server "$NVIM" --remote-tab {{filename}}; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":MyLazyGit<CR>"'
-  editAtLine: 'nvim --server "$NVIM" --remote-tab {{filename}}; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>"; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":MyLazyGit<CR>"'
-  editAtLineAndWait: 'nvim +{{line}} {{filename}}'
-promptToReturnFromSubprocess: false
-
+  editPreset: "nvim-remote"
