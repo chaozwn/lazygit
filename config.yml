@@ -1,7 +1,76 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+
+services:
+  "gitlab.baronatechnologies.fi": "gitlab:gitlab.baronatechnologies.fi"
+
+customCommands:
+  - key: "-"
+    context: global
+    description: Show branch graph
+    command: git lg # custom git alias
+    subprocess: true
+  - key: "<c-a>"
+    context: "global"
+    description: "Save everything as WIP"
+    command: "git commit --all --no-verify --message 'WIP: work in progress'"
+  - key: "<c-r>"
+    context: "commits"
+    description: "Reword, leaving only the first line"
+    # this is really useful when I have tons of squashed temp commits and I
+    # want to reduce the repetition in the commit messages
+    command: "git commit --amend --no-verify --message '{{.SelectedLocalCommit.Name}}'"
+  - key:
+      # backspace does not work, tracked in
+      # https://github.com/jesseduffield/lazygit/issues/2953
+      # https://github.com/jesseduffield/lazygit/issues/3847
+      "I"
+    context: global
+    command: "git stash-keep"
+  - key: "E"
+    description: "Add empty commit"
+    context: files
+    command: 'git commit --allow-empty -m "empty commit"'
+    loadingText: "Committing empty commit..."
+    prompts:
+      - type: input
+        title: Empty commit message
+        initialValue: "(empty commit)"
+
+keybinding:
+  universal:
+    edit: e
+  files:
+    commitChanges: C # using the interactive commit dialog
+    commitChangesWithEditor: c # using neovim
+    toggleTreeView: f
+
 os:
-  editPreset: "nvim-remote"
+  # I usually use lazygit embedded in nvim. For this, I use
+  # https://github.com/willothy/flatten.nvim to simplify the setup without the
+  # need for external applications.
+  #
+  edit: "nvim {{filename}}"
+  editAtLine: "nvim +{{line}} {{filename}}"
+  editAtLineAndWait: "nvim +{{line}} {{filename}}"
+
+  # Create pull request command opens a URL with incorrect escaping #3064
+  # https://github.com/jesseduffield/lazygit/issues/3064
+  openLink: open -n "$(echo {{link}} | sed 's/%3E/>/g' | sed 's/%2F/\//g' | sed
+    s/%27/\'/g )"
+
+promptToReturnFromSubprocess: false
+
+notARepository: "quit"
+
 gui:
+  commitHashLength: 0
+  skipRewordInEditorWarning: true
   nerdFontsVersion: "3"
+  scrollHeight: 10
+  mainPanelSplitMode: vertical
+  showDivergenceFromBaseBranch: arrowAndNumber
+  showNumstatInFilesView: true
   theme:
     activeBorderColor:
       - "#ff966c"
@@ -27,3 +96,9 @@ gui:
       - "#c53b53"
     defaultFgColor:
       - "#c8d3f5"
+
+git:
+  parseEmoji: true
+  paging:
+    colorArg: always
+    pager: delta --paging=never
