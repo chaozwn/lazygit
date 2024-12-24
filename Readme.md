@@ -21,27 +21,12 @@ brew install delta
 ```
 [core]
     editor = nvim
-    autocrlf = input
     pager = delta
 
-[diff]
-    tool = kitty
-    guitool = kitty.gui
-    colorMoved = default
-[difftool]
-    prompt = false
-    trustExitCode = true
-[difftool "kitty"]
-    cmd = kitty +kitten diff $LOCAL $REMOTE
-
-[difftool "kitty.gui"]
-    cmd = kitty kitty +kitten diff $LOCAL $REMOTE
-
 [interactive]
-    diffFilter = delta --color-only --features=interactive
+    diffFilter = delta --color-only --show-syntax-themes --features=interactive
 
 [delta]
-    tabs = 4
     side-by-side = true
     line-numbers = true
     minus-style                   = syntax "#3f2d3d"
