@@ -41,8 +41,8 @@ keybinding:
   universal:
     edit: e
   files:
-    commitChanges: C # using the interactive commit dialog
-    commitChangesWithEditor: c # using neovim
+    commitChanges: c # using the interactive commit dialog
+    commitChangesWithEditor: C # using neovim
     toggleTreeView: f
 
 os:
