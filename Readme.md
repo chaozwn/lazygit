@@ -10,10 +10,11 @@ export XDG_CONFIG_HOME="$HOME/.config"
 git clone https://github.com/chaozwn/lazygit.git ~/.config/lazygit
 ```
 
-# install delta
+# Install 
 
 ```shell
 brew install delta
+npm install -g git-cz
 ```
 
 # add ~/.gigconfig
